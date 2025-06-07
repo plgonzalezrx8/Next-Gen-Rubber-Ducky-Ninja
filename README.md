@@ -54,7 +54,7 @@ The Next Gen version represents a complete architectural overhaul with the follo
 
 - **UAC Integration**: Intelligent elevation handling for system-level operations with user-friendly prompts
 - **System Restore**: Built-in restore point creation before potentially risky script executions
-- **File Association**: Enhanced file management with recent files tracking and external editor integration
+- **File Association**: Enhanced file management with external editor integration (recent files tracking planned for future version)
 - **Windows App Runtime**: Leverages Windows App SDK 1.7+ for modern Windows features and APIs
 
 ### Supported Commands
@@ -99,7 +99,7 @@ The Next Generation toolkit (via enhanced DuckyScriptProcessing.cs) supports a c
 
 #### System Controls
 
-- **CAPSLOCK** – Toggles the CAPS LOCK state. The toolkit tracks caps state and adjusts STRING output accordingly.
+- **CAPSLOCK** – Toggles the CAPS LOCK state. The toolkit automatically tracks caps state and converts subsequent STRING commands to uppercase when caps lock is enabled.
 - **NUMLOCK** – Toggles the NUM LOCK state.
 - **SCROLLLOCK** – Toggles the SCROLL LOCK state.
 - **PAUSE** – Simulates pressing the PAUSE key.
@@ -107,7 +107,6 @@ The Next Generation toolkit (via enhanced DuckyScriptProcessing.cs) supports a c
 
 #### Advanced Features
 
-- **CAPS** – Toggles "caps lock" mode (so that subsequent STRING commands are typed in uppercase). This is a toolkit-specific command that maintains internal state.
 - **REPLAY** – Replays (repeats) the last command (except "REM", "REPLAY", "DEFINE", or "VAR") a given number of times. Enhanced with better command tracking.
 - **DEFINE** – Defines a constant for use in the script. Constants are prefixed with # and can be used in STRING, STRINGLN, and DELAY commands with real-time substitution.
 - **VAR** – Defines a variable that can hold unsigned integers (0-65535) or boolean values (TRUE/FALSE). Variables are prefixed with $ and feature enhanced type checking and validation.
@@ -167,10 +166,9 @@ VAR $DEBUG_MODE = FALSE
 2. Use the variable in commands:
 
 ```
-REM Variables can be used in STRING commands
-STRING The blink time is: $BLINK_TIME
-STRINGLN Debug mode is: $DEBUG_MODE
-REM Note: Conditional statements (IF/ENDIF) are planned for future versions
+REM Variables are defined and stored for future use
+REM Note: Variable substitution in STRING commands and conditional statements (IF/ENDIF) are planned for future versions
+REM Currently variables are stored and validated but not yet substituted in output
 ```
 
 Variables must:
@@ -466,6 +464,3 @@ For questions, suggestions, or general discussion:
 - Create a GitHub Issue for technical questions
 - Reach out to [@plgonzalezrx8](https://github.com/plgonzalezrx8) for collaboration inquiries
 - Check the TODO.md for planned features and development roadmap
-
-[![forthebadge](http://forthebadge.com/images/badges/designed-in-ms-paint.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
