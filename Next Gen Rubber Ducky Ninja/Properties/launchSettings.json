@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Next Gen Rubber Ducky Ninja (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Next Gen Rubber Ducky Ninja (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

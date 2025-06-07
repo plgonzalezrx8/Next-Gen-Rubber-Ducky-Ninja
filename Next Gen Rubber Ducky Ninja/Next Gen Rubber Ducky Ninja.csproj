@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <UseWinUI>true</UseWinUI>
+    <Nullable>enable</Nullable>
+    
+    <!-- Fix for .NET 8 RuntimeIdentifier issues with Windows App SDK -->
+    <UseRidGraph>true</UseRidGraph>
+    
+    <!-- Basic unpackaged configuration -->
+    <WindowsPackageType>None</WindowsPackageType>
+    
+    <!-- App Information -->
+    <AssemblyTitle>The Rubber Ducky Ninja</AssemblyTitle>
+    <AssemblyDescription>DuckyScript testing and validation toolkit - Next Generation</AssemblyDescription>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <!-- Package References - Using latest stable versions -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
+  </ItemGroup>
+
+  <!-- Reference InputSimulator.dll -->
+  <ItemGroup>
+    <Reference Include="InputSimulator">
+      <HintPath>lib\InputSimulator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Copy necessary files to output -->
+  <ItemGroup>
+    <None Update="lib\InputSimulator.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="duckencode.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="restore.vbs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="helloworld.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Application manifest -->
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+
+</Project>
