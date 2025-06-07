@@ -20,18 +20,19 @@
         </Grid.RowDefinitions>
 
         <!-- Title Bar -->
-        <Border Grid.Row="0" Background="{ThemeResource AccentFillColorDefaultBrush}" Height="50">
+        <Border Grid.Row="0" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Height="50"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                BorderThickness="0,0,0,1">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
                 <TextBlock Text="🥷" FontSize="24" VerticalAlignment="Center" Margin="0,0,12,0"/>
                 <StackPanel>
                     <TextBlock Text="The Rubber Ducky Ninja" 
                                FontSize="18" 
                                FontWeight="SemiBold"
-                               Foreground="White"/>
+                               Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
                     <TextBlock Text="Next Generation - DuckyScript Testing Suite" 
                                FontSize="11" 
-                               Foreground="#E0FFFFFF"
-                               Opacity="0.8"/>
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -196,8 +197,8 @@
                     Grid.Row="1"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Center"
-                    Margin="20,80,20,0"
-                    MaxWidth="600"
+                    Margin="20,60,20,0"
+                    MaxWidth="650"
                     Spacing="8">
             <!-- Dynamic InfoBars will appear here as floating overlay -->
         </StackPanel>

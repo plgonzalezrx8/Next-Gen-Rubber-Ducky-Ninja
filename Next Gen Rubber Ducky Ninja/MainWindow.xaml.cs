@@ -8,7 +8,7 @@ using WinRT.Interop;
 using Windows.Storage;
 using System.Diagnostics;
 using Microsoft.UI.Dispatching;
-using System.Numerics;
+using Microsoft.UI.Xaml.Media;
 
 namespace Next_Gen_Rubber_Ducky_Ninja
 {
@@ -118,7 +118,7 @@ namespace Next_Gen_Rubber_Ducky_Ninja
                     $"Delay between commands set to {delay}ms", 
                     InfoBarSeverity.Informational);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ShowNotification("❌ Invalid Delay", 
                     "Please enter a valid number between 0-10000", 
@@ -328,7 +328,7 @@ namespace Next_Gen_Rubber_Ducky_Ninja
             }
         }
 
-        private async void EditButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(currentFilePath)) return;
 
@@ -389,7 +389,7 @@ namespace Next_Gen_Rubber_Ducky_Ninja
             }
         }
 
-        private async void RestoreButton_Click(object sender, RoutedEventArgs e)
+        private void RestoreButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -478,13 +478,42 @@ namespace Next_Gen_Rubber_Ducky_Ninja
                 Message = message,
                 Severity = severity,
                 IsOpen = true,
-                CornerRadius = new CornerRadius(12),
-                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(16),
+                BorderThickness = new Thickness(2),
                 Margin = new Thickness(0),
-                // Add subtle shadow effect for floating appearance
-                Shadow = new ThemeShadow(),
-                Translation = new System.Numerics.Vector3(0, 0, 8)
+                Opacity = 1.0, // Full opacity for better visibility
+                // Enhanced visual appearance
+                Padding = new Thickness(20, 16, 20, 16)
             };
+
+            // Add enhanced styling based on severity
+            switch (severity)
+            {
+                case InfoBarSeverity.Success:
+                    infoBar.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 16, 124, 16)); // Vibrant green
+                    infoBar.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 255, 255, 255)); // White text
+                    break;
+                case InfoBarSeverity.Error:
+                    infoBar.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 196, 43, 28)); // Vibrant red
+                    infoBar.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 255, 255, 255)); // White text
+                    break;
+                case InfoBarSeverity.Warning:
+                    infoBar.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 157, 93, 0)); // Vibrant orange
+                    infoBar.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 255, 255, 255)); // White text
+                    break;
+                case InfoBarSeverity.Informational:
+                    infoBar.Background = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 0, 95, 184)); // Vibrant blue
+                    infoBar.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                        Windows.UI.Color.FromArgb(255, 255, 255, 255)); // White text
+                    break;
+            }
 
             // Add to notification area
             NotificationArea.Children.Add(infoBar);

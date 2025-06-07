@@ -140,7 +140,7 @@ namespace Next_Gen_Rubber_Ducky_Ninja
             return true;
         }
 
-        private object GetVariableValue(string varName)
+        private object? GetVariableValue(string varName)
         {
             if (string.IsNullOrEmpty(varName)) return null;
             
