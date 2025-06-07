@@ -8,6 +8,7 @@ using WinRT.Interop;
 using Windows.Storage;
 using System.Diagnostics;
 using Microsoft.UI.Dispatching;
+using System.Numerics;
 
 namespace Next_Gen_Rubber_Ducky_Ninja
 {
@@ -467,24 +468,32 @@ namespace Next_Gen_Rubber_Ducky_Ninja
 
         private void ShowNotification(string title, string message, InfoBarSeverity severity)
         {
-            // Create a notification InfoBar
+            // Clear any existing notifications first (only show 1 at a time)
+            NotificationArea.Children.Clear();
+
+            // Create a floating notification InfoBar with enhanced styling
             var infoBar = new InfoBar()
             {
                 Title = title,
                 Message = message,
                 Severity = severity,
                 IsOpen = true,
-                Margin = new Thickness(0, 0, 0, 8)
+                CornerRadius = new CornerRadius(12),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(0),
+                // Add subtle shadow effect for floating appearance
+                Shadow = new ThemeShadow(),
+                Translation = new System.Numerics.Vector3(0, 0, 8)
             };
 
             // Add to notification area
-            NotificationArea.Children.Insert(0, infoBar);
+            NotificationArea.Children.Add(infoBar);
 
-            // Auto-close after 5 seconds for non-error messages
+            // Auto-close after 4 seconds for non-error messages (slightly faster)
             if (severity != InfoBarSeverity.Error)
             {
                 var timer = DispatcherQueue.CreateTimer();
-                timer.Interval = TimeSpan.FromSeconds(5);
+                timer.Interval = TimeSpan.FromSeconds(4);
                 timer.Tick += (s, e) =>
                 {
                     infoBar.IsOpen = false;
@@ -502,11 +511,26 @@ namespace Next_Gen_Rubber_Ducky_Ninja
                 };
                 timer.Start();
             }
-            
-            // Keep max 3 notifications
-            while (NotificationArea.Children.Count > 3)
+            else
             {
-                NotificationArea.Children.RemoveAt(NotificationArea.Children.Count - 1);
+                // Error messages stay longer but still auto-close
+                var timer = DispatcherQueue.CreateTimer();
+                timer.Interval = TimeSpan.FromSeconds(8);
+                timer.Tick += (s, e) =>
+                {
+                    infoBar.IsOpen = false;
+                    timer.Stop();
+                    
+                    var removeTimer = DispatcherQueue.CreateTimer();
+                    removeTimer.Interval = TimeSpan.FromMilliseconds(300);
+                    removeTimer.Tick += (s2, e2) =>
+                    {
+                        NotificationArea.Children.Remove(infoBar);
+                        removeTimer.Stop();
+                    };
+                    removeTimer.Start();
+                };
+                timer.Start();
             }
         }
     }

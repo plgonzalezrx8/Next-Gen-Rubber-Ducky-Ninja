@@ -188,12 +188,18 @@
                             MinWidth="100"/>
                 </StackPanel>
 
-                <!-- Status/Notification Area -->
-                <StackPanel x:Name="NotificationArea" Spacing="8">
-                    <!-- Dynamic InfoBars will be added here -->
-                </StackPanel>
-
             </StackPanel>
         </ScrollViewer>
+
+        <!-- Floating Notification Overlay -->
+        <StackPanel x:Name="NotificationArea" 
+                    Grid.Row="1"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Center"
+                    Margin="20,80,20,0"
+                    MaxWidth="600"
+                    Spacing="8">
+            <!-- Dynamic InfoBars will appear here as floating overlay -->
+        </StackPanel>
     </Grid>
 </Window>
