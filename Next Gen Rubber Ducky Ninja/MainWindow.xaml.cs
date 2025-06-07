@@ -26,8 +26,8 @@ namespace Next_Gen_Rubber_Ducky_Ninja
             this.InitializeComponent();
             this.Title = "🥷 The Rubber Ducky Ninja - Next Gen";
             
-            // Set window size and center it
-            this.AppWindow.Resize(new Windows.Graphics.SizeInt32(800, 1000));
+            // Set window size for horizontal layout
+            this.AppWindow.Resize(new Windows.Graphics.SizeInt32(1000, 700));
             
             // Initialize the application
             InitializeApplication();
