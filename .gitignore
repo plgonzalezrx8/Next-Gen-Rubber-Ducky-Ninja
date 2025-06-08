@@ -29,6 +29,10 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# Build logs
+*.log
+build.log
+
 # Windows App SDK / WinUI 3 specific
 *.msix
 *.msixbundle
