@@ -19,6 +19,7 @@ namespace Next_Gen_Rubber_Ducky_Ninja
         private Dictionary<string, string> constants = new Dictionary<string, string>();
         private Dictionary<string, object> variables = new Dictionary<string, object>();
         private Validation validation = new Validation();
+        private int perKeyDelay = 20;
                 
         public void SetDelay(int delay) //sets the global delay
         {
@@ -181,24 +182,26 @@ namespace Next_Gen_Rubber_Ducky_Ninja
                     case "STRING":
                         CheckDefaultSleep();
                         string textToType = SubstituteConstants(keys);
-                        if (isCapsEnabled == true)
+                        if (isCapsEnabled)
                         {
-                            InputSimulator.SimulateTextEntry((textToType.ToUpper()));
-                        } else
+                            SimulateTextEntryWithDelay(textToType.ToUpper());
+                        }
+                        else
                         {
-                            InputSimulator.SimulateTextEntry(textToType);
+                            SimulateTextEntryWithDelay(textToType);
                         }
                         break;
 
                     case "STRINGLN":
                         CheckDefaultSleep();
                         string textToTypeLn = SubstituteConstants(keys);
-                        if (isCapsEnabled == true)
+                        if (isCapsEnabled)
                         {
-                            InputSimulator.SimulateTextEntry((textToTypeLn.ToUpper()));
-                        } else
+                            SimulateTextEntryWithDelay(textToTypeLn.ToUpper());
+                        }
+                        else
                         {
-                            InputSimulator.SimulateTextEntry(textToTypeLn);
+                            SimulateTextEntryWithDelay(textToTypeLn);
                         }
                         InputSimulator.SimulateKeyPress(VirtualKeyCode.RETURN);
                         break;
@@ -549,6 +552,15 @@ namespace Next_Gen_Rubber_Ducky_Ninja
                         }
                     }
                     return VirtualKeyCode.SPACE; // Fallback
+            }
+        }
+
+        private void SimulateTextEntryWithDelay(string text)
+        {
+            foreach (char c in text)
+            {
+                InputSimulator.SimulateTextEntry(c.ToString());
+                Thread.Sleep(perKeyDelay);
             }
         }
     }
